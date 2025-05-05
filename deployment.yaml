@@ -1,0 +1,27 @@
+chartVersion: 0.1.12
+projectName: urbansportsclub
+
+ingress:
+  enabled: false
+
+deployment:
+  enabled: true
+  replicas: 1
+  image: markmorcos/urbansportsclub
+  tag: latest
+  pullPolicy: Always
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: EMAIL
+      valueFrom:
+        secretKeyRef:
+          name: credentials
+          key: email
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: credentials
+          key: password
+service:
+  enabled: false
