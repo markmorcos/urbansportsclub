@@ -22,4 +22,4 @@ COPY --from=dependencies /app/node_modules ./node_modules
 
 ENV NODE_ENV=production
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/worker.js"]
