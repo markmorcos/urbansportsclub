@@ -1,27 +1,30 @@
-chartVersion: 0.1.12
-projectName: urbansportsclub
+chartVersion: 0.2.11
 
-ingress:
-  enabled: false
+project:
+  name: urbansportsclub
 
-deployment:
-  enabled: true
-  replicas: 1
-  image: markmorcos/urbansportsclub
-  tag: latest
-  pullPolicy: Always
-  env:
-    - name: NODE_ENV
-      value: production
-    - name: EMAIL
-      valueFrom:
-        secretKeyRef:
-          name: credentials
-          key: email
-    - name: PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: credentials
-          key: password
-service:
-  enabled: false
+repository:
+  name: markmorcos/urbansportsclub
+  path: .
+
+deployments:
+  - name: urbansportsclub-deployment
+    image: markmorcos/urbansportsclub
+    env:
+      - name: EMAIL
+        valueFrom:
+          secretKeyRef:
+            name: credentials
+            key: EMAIL
+      - name: PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: credentials
+            key: PASSWORD
+      - name: BASE_URL
+        value: https://rdr.cx
+      - name: REDIS_URL
+        valueFrom:
+          secretKeyRef:
+            name: redis-secret
+            key: REDIS_URL
