@@ -10,7 +10,7 @@ const config: Record<Environment, Config> = {
     headless: false,
   },
   production: {
-    successInterval: 86400000,
+    successInterval: 5000,
     failureInterval: 5000,
     headless: true,
   },

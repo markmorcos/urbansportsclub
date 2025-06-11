@@ -1,4 +1,4 @@
-import { chromium, Browser, Page, Locator } from "playwright";
+import { chromium, Browser, Page } from "playwright";
 
 import { CLASSES } from "./constants";
 import { getConfig } from "./config";
@@ -54,8 +54,8 @@ async function findTimeSlot(page: Page, klass: Klass) {
 
 async function completeBooking(page: Page) {
   const bookingButton = page.locator(".smm-class-details__button.booking.book");
+  await bookingButton.scrollIntoViewIfNeeded();
   if (await bookingButton.isVisible()) {
-    await bookingButton.scrollIntoViewIfNeeded();
     await bookingButton.click();
   }
 
@@ -99,11 +99,8 @@ async function run(klass: Klass, date: string) {
     console.log("Completing booking...");
     await completeBooking(page);
 
-    await page.waitForTimeout(1000);
-
-    console.log("Taking screenshot...");
-    await page.screenshot({ path: `${Date.now()}.png` });
-    console.log("Screenshot taken");
+    console.log(`Booking ${klass} on ${date} completed`);
+    await redisClient.sAdd("usc", date);
   } catch (error) {
     console.error("An error occurred:", error);
   } finally {
@@ -120,8 +117,5 @@ export async function runAll() {
 
     console.log(`Booking ${klass} on ${date}...`);
     await run(CLASSES[klass], date);
-    console.log(`Booking ${klass} on ${date} completed`);
-
-    await redisClient.sAdd("usc", date);
   }
 }

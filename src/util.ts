@@ -1,4 +1,4 @@
-import { CLASSES, OFFSET_DAYS } from "./constants";
+import { OFFSET_DAYS } from "./constants";
 import { Klass } from "./types";
 
 export const WEEKDAYS = [

@@ -1,15 +1,11 @@
-chartVersion: 0.3.0
+version: 0.4.6
 
-project:
-  name: urbansportsclub
+namespace: urbansportsclub
+project: urbansportsclub
 
-repository:
-  name: markmorcos/urbansportsclub
-  path: .
-
-deployments:
-  - name: urbansportsclub-deployment
-    image: markmorcos/urbansportsclub
+services:
+  - name: urbansportsclub
+    image: ghcr.io/markmorcos/urbansportsclub
     env:
       - name: EMAIL
         valueFrom:
@@ -21,8 +17,6 @@ deployments:
           secretKeyRef:
             name: credentials
             key: PASSWORD
-      - name: BASE_URL
-        value: https://rdr.cx
       - name: REDIS_URL
         valueFrom:
           secretKeyRef:

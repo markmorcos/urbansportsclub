@@ -8,7 +8,7 @@ export const CREDENTIALS = {
   PASSWORD: process.env.PASSWORD,
 };
 
-export const OFFSET_DAYS = 12;
+export const OFFSET_DAYS = 13;
 
 export const CLASSES: Record<string, Klass> = {
   PILATES: {
