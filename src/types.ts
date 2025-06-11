@@ -7,6 +7,7 @@ export interface Config {
 }
 
 export interface Klass {
+  name: string;
   url: (date: string) => string;
   weekday: string;
   time: string;

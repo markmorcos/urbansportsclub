@@ -99,7 +99,7 @@ async function run(klass: Klass, date: string) {
     console.log("Completing booking...");
     await completeBooking(page);
 
-    console.log(`Booking ${klass} on ${date} completed`);
+    console.log(`Booking ${klass.name} on ${date} completed`);
     await redisClient.sAdd("usc", date);
   } catch (error) {
     console.error("An error occurred:", error);
