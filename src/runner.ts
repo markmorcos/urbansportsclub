@@ -110,12 +110,10 @@ async function run(klass: Klass, date: string) {
 
 export async function runAll() {
   for (const { klass, date } of getUpcomingClassDates(CLASSES)) {
-    if (await redisClient.sIsMember("usc", date)) {
-      console.log(`Already booked for ${date}, skipping...`);
-      continue;
+    const booked = await redisClient.sIsMember("usc", date);
+    if (!booked) {
+      console.log(`Booking ${klass} on ${date}...`);
+      await run(CLASSES[klass], date);
     }
-
-    console.log(`Booking ${klass} on ${date}...`);
-    await run(CLASSES[klass], date);
   }
 }
